@@ -1,1 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Braemar LOI Generator</title>
+  <style>
+    :root {
+      --braemar-soft-grey: #f8f6f5;
+      --braemar-forest-green: #336e63;
+      --braemar-ocean-blue: #182432;
+      --braemar-accent-green: #2dd782;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 1rem;
+      padding: 0;
+      box-sizing: border-box;
+      background: var(--braemar-soft-grey);
+      color: var(--braemar-ocean-blue);
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: var(--braemar-forest-green);
+      text-align: center;
+    }
+    form {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: var(--braemar-ocean-blue);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--braemar-forest-green);
+      box-shadow: 0 0 0 2px rgba(51,110,99,0.2);
+    }
+    #preview {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      white-space: pre-wrap;
+    }
+    .actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+    button {
+      background-color: var(--braemar-accent-green);
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #24c173;
+    }
+    @media (min-width: 768px) {
+      body {
+        max-width: 768px;
+        margin: 2rem auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Braemar Letter of Indemnity Generator</h1>
+
+  <form id="loiForm">
+    <label>Owner/Manager Name:
+      <input type="text" name="ownerName">
+    </label>
+    <label>Owner/Manager Address:
+      <input type="text" name="ownerAddress">
+    </label>
+    <label>Date:
+      <input type="text" name="date">
+    </label>
+    <label>Vessel Name:
+      <input type="text" name="vesselName">
+    </label>
+    <label>Port of Loading:
+      <input type="text" name="portLoading">
+    </label>
+    <label>Port of Discharge:
+      <input type="text" name="portDischarge">
+    </label>
+    <label>Cargo Description:
+      <textarea name="cargoDescription" rows="3"></textarea>
+    </label>
+    <label>Bill of Lading Details:
+      <textarea name="billDetails" rows="2"></textarea>
+    </label>
+    <label>Shipper Name:
+      <input type="text" name="shipperName">
+    </label>
+    <label>Consignee Name:
+      <input type="text" name="consigneeName">
+    </label>
+    <label>Requestor Name:
+      <input type="text" name="requestorName">
+    </label>
+    <label>Delivery Recipient Name:
+      <input type="text" name="deliveryName">
+    </label>
+    <label>Delivery Location:
+      <input type="text" name="deliveryPlace">
+    </label>
+    <label>Signatory Full Name:
+      <input type="text" name="signatoryFullName">
+    </label>
+  </form>
+
+  <div class="actions">
+    <button onclick="copyText()">Copy Text</button>
+    <button onclick="downloadWord()">Download Word</button>
+  </div>
+
+  <div id="preview"></div>
+
+  <script>
+    const form = document.getElementById('loiForm');
+    const preview = document.getElementById('preview');
+
+    const getFormData = () => Object.fromEntries(new FormData(form).entries());
+
+    const updatePreview = () => {
+      const d = getFormData();
+      preview.textContent = `To: ${d.ownerName}
+${d.date}
+
+The Owners and/or Managers of the ${d.vesselName}
+${d.ownerAddress}
+
+Dear Sirs
+
+Vessel: ${d.vesselName}
+Port of Loading: ${d.portLoading}
+Port of Discharge: ${d.portDischarge}
+Cargo: ${d.cargoDescription}
+Bill(s) of Lading: ${d.billDetails}
+
+The above Cargo was shipped on the above Vessel by ${d.shipperName} and consigned to ${d.consigneeName} for delivery at the Port of Discharge but the Bill(s) of Lading is (are) not currently available to be presented.
+
+We, ${d.requestorName}, hereby represent and undertake that ${d.deliveryName} is the party lawfully entitled to delivery of the said Cargo and request you to deliver the said Cargo to ${d.deliveryName} or to such party as you believe to be or to represent ${d.deliveryName} or to be acting on behalf of ${d.deliveryName} at ${d.deliveryPlace} without production of the original Bill(s) of Lading.
+
+In consideration of your complying with our above request, we hereby agree as follows:
+
+1. To indemnify you, your servants and agents and to hold all of you harmless in respect of any liability, loss, damage or expense of whatsoever nature which you may sustain by reason of delivering the Cargo in accordance with our request.
+
+2. In the event of any proceedings being commenced against you or any of your servants or agents in connection with the delivery of the Cargo as aforesaid, to provide you or them on demand with sufficient funds to defend the same.
+
+3. If, in connection with the delivery of the Cargo as aforesaid, the Vessel, or any other vessel or property in the same or associated ownership, management or control, or any vessel or property in your ownership, management or control, should be arrested or detained or should the arrest or detention thereof be threatened, or should there be any interference in the use or trading of the Vessel or such other vessels or property:
+(a) to provide on demand such bail or other security as may be required;
+(b) if you have already provided security, to provide on demand equivalent substitute or counter security; and
+(c) to indemnify you in respect of any liability, loss, damage or expense caused by such arrest or detention or threatened arrest or such interference.
+
+4. If the place at which we have asked you to make delivery is a bulk liquid, dry bulk cargo or gas terminal or other facility, or another vessel, lighter or barge, then discharge or delivery to such terminal, facility, vessel, lighter or barge shall be deemed to be delivery to the party to whom we have requested you to make such delivery.
+
+5. As soon as all original bills of lading for the above Cargo shall have come into our possession, to deliver the same to you, whereupon (always provided that the said bills of lading have been properly tendered by the party to whom the Cargo was actually delivered) our liability hereunder shall cease.
+
+6. The liability of each and every person under this indemnity shall be joint and several and shall not be conditional upon your proceeding first against any person.
+
+7. This indemnity shall be governed by and construed in accordance with English law and each person liable under this indemnity submits to the exclusive jurisdiction of the High Court of Justice of England.
+
+Yours faithfully for and on behalf of ${d.requestorName}
+
+The Requestor
+Full name ${d.signatoryFullName}
+Signature ______________________________
+Authorised signatory`;
+    };
+
+    function copyText() {
+      navigator.clipboard.writeText(preview.textContent).then(() => alert("Text copied to clipboard."));
+    }
+
+    function downloadWord() {
+      const header = `<!DOCTYPE html><html><head><meta charset='utf-8'><title>LOI</title></head><body><pre>`;
+      const footer = `</pre></body></html>`;
+      const blob = new Blob([header + preview.textContent + footer], { type: "application/msword" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Braemar_LOI.doc";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    form.addEventListener('input', updatePreview);
+    updatePreview();
+  </script>
+</body>
+</html>
 
