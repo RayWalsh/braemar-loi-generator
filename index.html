@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Braemar LOI Generator</title>
-<style>
- :root {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Braemar LOI Generator</title>
+  <style>
+    :root {
       --braemar-soft-grey: #f8f6f5;
       --braemar-forest-green: #336e63;
       --braemar-ocean-blue: #182432;
@@ -127,7 +127,7 @@
         margin: 2rem auto;
       }
     }
-</style>
+  </style>
 </head>
 <body>
   <h1>Braemar Letter of Indemnity Generator</h1>
@@ -142,7 +142,7 @@
     </div>
     <label>Owner/Manager Name:<input type="text" name="ownerName"></label>
     <label>Owner/Manager Address:<input type="text" name="ownerAddress"></label>
-    <label>Date:<input type="text" name="date"></label>
+    <label>Date:<input type="text" name="date" id="dateField"></label>
     <label>Vessel Name:<input type="text" name="vesselName"></label>
     <label>Port of Loading:<input type="text" name="portLoading"></label>
     <label>Port of Discharge:<input type="text" name="portDischarge"></label>
@@ -167,11 +167,12 @@
 
   <script>
     const form = document.getElementById('loiForm');
-    const preview = document.getElementById('preview');
     const fileInput = document.getElementById('fileInput');
     const spinner = document.getElementById('spinner');
     const debugConsole = document.getElementById('debugConsole');
     const jsonOutput = document.getElementById('jsonOutput');
+
+    document.getElementById('dateField').value = new Date().toISOString().split('T')[0];
 
     const endpoint = "https://bldataextractor1.cognitiveservices.azure.com/";
     const apiKey = "3ced498fc6a24e01ab8be5992d41c2d1";
@@ -224,13 +225,50 @@
         jsonOutput.textContent = JSON.stringify(result, null, 2);
 
         const fields = result.documents[0].fields;
-        form.shipperName.value = fields.ShipperName?.content || "";
-        form.cargoDescription.value = `${fields.CargoQty?.content || ""} ${fields.CargoDescription?.content || ""}`.trim();
-        form.vesselName.value = fields.ShipName?.content || "";
-        form.consigneeName.value = fields.ConsigneeName?.content || "";
-        form.portLoading.value = fields.LoadPort?.content || "";
-        form.portDischarge.value = fields.DischargePort?.content || "";
-        form.billDetails.value = fields.BLDate?.content || "";
+        const mapping = {
+          shipperName: 'ShipperName',
+          consigneeName: 'ConsigneeName',
+          vesselName: 'ShipName',
+          portLoading: 'LoadPort',
+          portDischarge: 'DischargePort',
+          billDetails: 'BLDate',
+          requestorName: 'ShipperName',
+          deliveryName: 'ConsigneeName',
+          cargoDescription: (fields) => `${fields.CargoQty?.content || ''} ${fields.CargoDescription?.content || ''}`.trim()
+        };
+
+        Object.entries(mapping).forEach(([formKey, fieldKey]) => {
+          const input = form[formKey];
+          if (!input) return;
+
+          let value = "";
+          let confidence = null;
+
+          if (typeof fieldKey === 'function') {
+            value = fieldKey(fields);
+            confidence = null;
+          } else if (fields[fieldKey]) {
+            value = fields[fieldKey].content;
+            confidence = fields[fieldKey].confidence;
+          }
+
+          if (value) {
+            input.value = value;
+            input.classList.add('autofilled');
+            const dot = document.createElement('span');
+            dot.classList.add('confidence-indicator');
+            const dotInner = document.createElement('span');
+            dotInner.classList.add('dot');
+            if (confidence >= 0.8) dotInner.classList.add('green');
+            else if (confidence >= 0.5) dotInner.classList.add('orange');
+            else dotInner.classList.add('red');
+            dot.appendChild(dotInner);
+            const percent = document.createElement('span');
+            percent.textContent = `${Math.round(confidence * 100)}%`;
+            dot.appendChild(percent);
+            input.insertAdjacentElement('afterend', dot);
+          }
+        });
 
         updatePreview();
       } catch (err) {
@@ -241,11 +279,13 @@
       }
     }
 
-    const getFormData = () => Object.fromEntries(new FormData(form).entries());
+    function getFormData() {
+      return Object.fromEntries(new FormData(form).entries());
+    }
 
-    const updatePreview = () => {
+    function updatePreview() {
       const d = getFormData();
-      preview.textContent = `To: ${d.ownerName}
+      document.getElementById('preview').textContent = `To: ${d.ownerName}
 ${d.date}
 
 The Owners and/or Managers of the ${d.vesselName}
@@ -288,16 +328,16 @@ The Requestor
 Full name ${d.signatoryFullName}
 Signature ______________________________
 Authorised signatory`;
-    };
+    }
 
     function copyText() {
-      navigator.clipboard.writeText(preview.textContent).then(() => alert("Text copied to clipboard."));
+      navigator.clipboard.writeText(document.getElementById('preview').textContent).then(() => alert("Text copied to clipboard."));
     }
 
     function downloadWord() {
       const header = `<!DOCTYPE html><html><head><meta charset='utf-8'><title>LOI</title></head><body><pre>`;
       const footer = `</pre></body></html>`;
-      const blob = new Blob([header + preview.textContent + footer], { type: "application/msword" });
+      const blob = new Blob([header + document.getElementById('preview').textContent + footer], { type: "application/msword" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -311,4 +351,3 @@ Authorised signatory`;
   </script>
 </body>
 </html>
-<!-- The body content remains unchanged; the script section will include logic to highlight and label fields with confidence -->
