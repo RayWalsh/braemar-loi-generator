@@ -91,6 +91,8 @@
       border-radius: 6px;
       padding: 0.5rem;
       white-space: pre-wrap;
+      max-height: 300px;
+      overflow-y: auto;
     }
     #preview {
       margin-top: 2rem;
@@ -204,20 +206,13 @@
         jsonOutput.textContent = JSON.stringify(result, null, 2);
 
         const fields = result.documents[0].fields;
-        form.ownerName.value = fields.ownerName?.content || "";
-        form.ownerAddress.value = fields.ownerAddress?.content || "";
-        form.date.value = fields.date?.content || "";
-        form.vesselName.value = fields.vesselName?.content || "";
-        form.portLoading.value = fields.portLoading?.content || "";
-        form.portDischarge.value = fields.portDischarge?.content || "";
-        form.cargoDescription.value = fields.cargoDescription?.content || "";
-        form.billDetails.value = fields.billDetails?.content || "";
-        form.shipperName.value = fields.shipperName?.content || "";
-        form.consigneeName.value = fields.consigneeName?.content || "";
-        form.requestorName.value = fields.requestorName?.content || "";
-        form.deliveryName.value = fields.deliveryName?.content || "";
-        form.deliveryPlace.value = fields.deliveryPlace?.content || "";
-        form.signatoryFullName.value = fields.signatoryFullName?.content || "";
+        form.shipperName.value = fields.ShipperName?.content || "";
+        form.cargoDescription.value = `${fields.CargoQty?.content || ""} ${fields.CargoDescription?.content || ""}`.trim();
+        form.vesselName.value = fields.ShipName?.content || "";
+        form.consigneeName.value = fields.ConsigneeName?.content || "";
+        form.portLoading.value = fields.LoadPort?.content || "";
+        form.portDischarge.value = fields.DischargePort?.content || "";
+        form.billDetails.value = fields.BLDate?.content || "";
 
         updatePreview();
       } catch (err) {
