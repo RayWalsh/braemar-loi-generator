@@ -1,0 +1,113 @@
+/* styles.css */
+:root {
+  --braemar-soft-grey: #f8f6f5;
+  --braemar-forest-green: #336e63;
+  --braemar-ocean-blue: #182432;
+  --braemar-accent-green: #2dd782;
+  --soft-red: #fbeaea;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 1rem;
+  padding: 0;
+  background: var(--braemar-soft-grey);
+  color: var(--braemar-ocean-blue);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--braemar-forest-green);
+  text-align: center;
+}
+
+form {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.overlap-group {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.overlap-group label {
+  position: absolute;
+  top: -0.6rem;
+  left: 1rem;
+  background: white;
+  padding: 0 0.25rem;
+  font-size: 0.9rem;
+  color: var(--braemar-ocean-blue);
+  z-index: 1;
+}
+
+.overlap-group input,
+.overlap-group textarea {
+  width: 100%;
+  padding: 1rem 0.5rem 0.5rem 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.overlap-group.autofilled input,
+.overlap-group.autofilled textarea {
+  background-color: #e6f5ea;
+}
+
+.overlap-group.low-confidence input,
+.overlap-group.low-confidence textarea {
+  background-color: var(--soft-red);
+}
+
+.confidence-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+}
+
+.confidence-indicator .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.green { background-color: #2dd782; }
+.dot.orange { background-color: orange; }
+.dot.red { background-color: red; }
+
+.actions, .upload-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  background-color: var(--braemar-accent-green);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #24c173;
+}
