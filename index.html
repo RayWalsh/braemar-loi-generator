@@ -12,12 +12,12 @@
   <form id="loiForm">
     <div class="overlap-group">
       <label for="fileInput">Upload Document</label>
-      <input type="file" id="fileInput" />
+      <input type="file" id="fileInput" accept=".pdf" />
     </div>
 
     <div class="upload-actions">
-      <button type="button" onclick="analyzeDocument()">Extract</button>
-      <div id="spinner" class="spinner"></div>
+      <button type="button" id="extractBtn">Extract</button>
+      <div id="spinner" class="spinner" style="display: none;"></div>
     </div>
 
     <div class="overlap-group"><label for="ownerName">Owner/Manager Name</label><input type="text" name="ownerName" id="ownerName" /></div>
