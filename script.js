@@ -187,3 +187,10 @@ Full name ${d.signatoryFullName}
 Signature ______________________________
 Authorised signatory`;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const extractBtn = document.getElementById("extractBtn");
+  if (extractBtn) {
+    extractBtn.addEventListener("click", analyzeDocument);
+  }
+});
