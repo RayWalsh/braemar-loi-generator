@@ -149,3 +149,11 @@ button {
 button:hover {
   background-color: #24c173;
 }
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+}
