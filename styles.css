@@ -111,3 +111,22 @@ button {
 button:hover {
   background-color: #24c173;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  color: var(--braemar-forest-green);
+  margin: 0;
+  flex: 1;
+}
+
+.header .logo {
+  height: 40px;
+  margin-left: 1rem;
+}
