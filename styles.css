@@ -167,25 +167,27 @@ button:hover {
 /* LOI Preview Styling */
 #preview {
   margin-top: 2rem;
-  background: white;
+  background: rgba(255, 255, 255, 0.96);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   white-space: pre-wrap;
   font-family: Georgia, serif;
   font-size: 0.95rem;
-  line-height: 1.5;
-  border-left: 4px solid var(--braemar-accent-green);
+  line-height: 1.6;
   color: #222;
+  border-left: 4px solid var(--braemar-accent-green);
+  backdrop-filter: blur(2px);
+  overflow-x: auto;
 }
 
 #preview::before {
   content: "Letter of Indemnity Preview";
   display: block;
-  font-size: 1rem;
   font-weight: bold;
-  color: var(--braemar-ocean-blue);
+  color: var(--braemar-forest-green);
   margin-bottom: 1rem;
+  font-size: 1rem;
   border-bottom: 1px solid #ccc;
   padding-bottom: 0.5rem;
 }
