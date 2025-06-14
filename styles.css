@@ -130,3 +130,12 @@ button:hover {
   height: 40px;
   margin-left: 1rem;
 }
+
+body {
+  background-image: url('assets/BRA010_Stock Imagery_Shipping_03.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* keeps background still while scrolling */
+  background-color: #f8f6f5; /* fallback */
+}
