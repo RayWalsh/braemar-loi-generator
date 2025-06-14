@@ -6,7 +6,7 @@
   --soft-red: #fbeaea;
 }
 
-/* Background image and overlay layer */
+/* Background image and overlay */
 body {
   font-family: Arial, sans-serif;
   margin: 1rem;
@@ -23,7 +23,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: #f8f6f5; /* fallback */
+  background-color: var(--braemar-soft-grey);
 }
 
 body::before {
@@ -38,49 +38,49 @@ body::before {
   z-index: -1;
 }
 
-/* Heading and logo */
+/* Header: cleaner and modern */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
   flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(4px);
+  margin-bottom: 1rem;
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .header h1 {
-  font-size: 1.4rem;
-  color: var(--braemar-forest-green);
+  font-size: 1.5rem;
+  color: #ffffff;
   margin: 0;
+  line-height: 1.3;
   flex: 1;
-  padding: 0.3rem 0.75rem;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(3px);
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
-  display: inline-block;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .header .logo {
   height: 40px;
   margin-left: 1rem;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+/* Form container */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 /* Form card */
 form {
-  background: rgba(255, 255, 255, 0.96); /* subtle transparency */
+  background: rgba(255, 255, 255, 0.96);
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* Floating label layout */
+/* Floating labels */
 .overlap-group {
   position: relative;
   margin-top: 2rem;
@@ -162,12 +162,4 @@ button {
 
 button:hover {
   background-color: #24c173;
-}
-
-.container {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 1rem;
-  position: relative;
-  z-index: 1;
 }
