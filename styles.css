@@ -32,7 +32,8 @@ body::before {
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.25); /* dimming */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0) 100%),
+              rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(2px);
   z-index: -1;
 }
@@ -44,6 +45,13 @@ body::before {
   align-items: center;
   margin-bottom: 1rem;
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .header h1 {
@@ -51,6 +59,12 @@ body::before {
   color: var(--braemar-forest-green);
   margin: 0;
   flex: 1;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(3px);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+  display: inline-block;
 }
 
 .header .logo {
