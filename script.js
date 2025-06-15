@@ -194,3 +194,43 @@ document.addEventListener("DOMContentLoaded", () => {
     extractBtn.addEventListener("click", analyzeDocument);
   }
 });
+
+function copyText() {
+  const content = document.getElementById('preview-content');
+  if (!content || !content.textContent.trim()) {
+    alert("Nothing to copy — the LOI preview is empty.");
+    return;
+  }
+
+  navigator.clipboard.writeText(content.textContent)
+    .then(() => alert("LOI text copied to clipboard."))
+    .catch(() => alert("Failed to copy text. Please try again."));
+}
+
+function downloadWord() {
+  const content = document.getElementById('preview-content');
+  if (!content || !content.textContent.trim()) {
+    alert("Nothing to download — the LOI preview is empty.");
+    return;
+  }
+
+  const header = `
+    <html xmlns:o='urn:schemas-microsoft-com:office:office'
+          xmlns:w='urn:schemas-microsoft-com:office:word'
+          xmlns='http://www.w3.org/TR/REC-html40'>
+    <head><meta charset='utf-8'><title>LOI</title></head><body>`;
+  const footer = "</body></html>";
+  const sourceHTML = header + "<pre>" + content.textContent + "</pre>" + footer;
+
+  const blob = new Blob(['\ufeff', sourceHTML], {
+    type: 'application/msword'
+  });
+
+  const url = URL.createObjectURL(blob);
+  const downloadLink = document.createElement("a");
+  downloadLink.href = url;
+  downloadLink.download = "Letter_of_Indemnity.doc";
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+}
