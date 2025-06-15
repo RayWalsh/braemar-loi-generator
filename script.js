@@ -197,14 +197,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function copyText() {
   const content = document.getElementById('preview-content');
-  if (!content || !content.textContent.trim()) {
+  const text = content?.textContent || "";
+
+  if (!text.trim()) {
     alert("Nothing to copy — the LOI preview is empty.");
     return;
   }
 
-  navigator.clipboard.writeText(content.textContent)
+  navigator.clipboard.writeText(text)
     .then(() => alert("LOI text copied to clipboard."))
-    .catch(() => alert("Failed to copy text. Please try again."));
+    .catch(err => {
+      console.error("Copy failed", err);
+      alert("Failed to copy text.");
+    });
 }
 
 function downloadWord() {
