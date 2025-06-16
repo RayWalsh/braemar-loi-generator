@@ -209,3 +209,15 @@ button:hover {
   color: var(--braemar-ocean-blue);
   margin-top: 0.25rem;
 }
+
+.progress-message {
+  font-size: 0.85rem;
+  color: var(--braemar-ocean-blue);
+  margin-top: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.progress-message[style*="display: inline-block"] {
+  opacity: 1;
+}
