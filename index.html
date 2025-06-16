@@ -8,50 +8,53 @@
 </head>
 <body>
   <div class="header">
-  <h1>Braemar <br />Letter of Indemnity Generator</h1>
-  <img src="assets/Braemar_Bravo_Mark_Light.png" alt="Braemar Logo" class="logo" />
-</div>
+    <h1>Braemar <br />Letter of Indemnity Generator</h1>
+    <img src="assets/Braemar_Bravo_Mark_Light.png" alt="Braemar Logo" class="logo" />
+  </div>
 
   <div class="container">
-  <form id="loiForm">
-    <div class="overlap-group">
-      <label for="fileInput">Upload Document</label>
-      <input type="file" id="fileInput" accept=".pdf" />
+    <form id="loiForm">
+      <div class="overlap-group">
+        <label for="fileInput">Upload Document</label>
+        <input type="file" id="fileInput" accept=".pdf" />
+      </div>
+
+      <div class="upload-actions">
+        <button type="button" id="extractBtn">Extract</button>
+        <div id="spinner" class="spinner" style="display: none;"></div>
+        <div id="progressMessage" class="progress-message" style="display: none;">Extracting data…</div>
+      </div>
+
+      <div class="overlap-group"><label for="ownerName">Owner/Manager Name</label><input type="text" name="ownerName" id="ownerName" /></div>
+      <div class="overlap-group"><label for="ownerAddress">Owner/Manager Address</label><input type="text" name="ownerAddress" id="ownerAddress" /></div>
+      <div class="overlap-group"><label for="dateField">Date</label><input type="text" name="date" id="dateField" /></div>
+      <div class="overlap-group"><label for="vesselName">Vessel Name</label><input type="text" name="vesselName" id="vesselName" /></div>
+      <div class="overlap-group"><label for="portLoading">Port of Loading</label><input type="text" name="portLoading" id="portLoading" /></div>
+      <div class="overlap-group"><label for="portDischarge">Port of Discharge</label><input type="text" name="portDischarge" id="portDischarge" /></div>
+      <div class="overlap-group"><label for="cargoDescription">Cargo Description</label><textarea name="cargoDescription" rows="2" id="cargoDescription"></textarea></div>
+      <div class="overlap-group"><label for="billDetails">Bill of Lading</label><textarea name="billDetails" rows="2" id="billDetails" placeholder="[BL Number] dated [Date] in [LoadPort]"></textarea></div>
+      <div class="overlap-group"><label for="shipperName">Shipper Name</label><input type="text" name="shipperName" id="shipperName" /></div>
+      <div class="overlap-group"><label for="consigneeName">Consignee Name</label><input type="text" name="consigneeName" id="consigneeName" /></div>
+      <div class="overlap-group"><label for="requestorName">Requestor Name</label><input type="text" name="requestorName" id="requestorName" /></div>
+      <div class="overlap-group"><label for="deliveryName">Delivery Recipient Name</label><input type="text" name="deliveryName" id="deliveryName" /></div>
+      <div class="overlap-group"><label for="deliveryPlace">Delivery Location</label><input type="text" name="deliveryPlace" id="deliveryPlace" /></div>
+      <div class="overlap-group"><label for="signatoryFullName">Signatory Full Name</label><input type="text" name="signatoryFullName" id="signatoryFullName" /></div>
+    </form>
+
+    <div class="actions">
+      <button onclick="copyText()">Copy Text</button>
+      <button onclick="downloadWord()">Download Word</button>
     </div>
 
-    <div class="upload-actions">
-      <button type="button" id="extractBtn">Extract</button>
-      <div id="spinner" class="spinner" style="display: none;"></div>
+    <div id="preview">
+      <div id="preview-title">Letter of Indemnity Preview</div>
+      <div id="preview-content"></div>
     </div>
 
-    <div class="overlap-group"><label for="ownerName">Owner/Manager Name</label><input type="text" name="ownerName" id="ownerName" /></div>
-    <div class="overlap-group"><label for="ownerAddress">Owner/Manager Address</label><input type="text" name="ownerAddress" id="ownerAddress" /></div>
-    <div class="overlap-group"><label for="dateField">Date</label><input type="text" name="date" id="dateField" /></div>
-    <div class="overlap-group"><label for="vesselName">Vessel Name</label><input type="text" name="vesselName" id="vesselName" /></div>
-    <div class="overlap-group"><label for="portLoading">Port of Loading</label><input type="text" name="portLoading" id="portLoading" /></div>
-    <div class="overlap-group"><label for="portDischarge">Port of Discharge</label><input type="text" name="portDischarge" id="portDischarge" /></div>
-    <div class="overlap-group"><label for="cargoDescription">Cargo Description</label><textarea name="cargoDescription" rows="2" id="cargoDescription"></textarea></div>
-    <div class="overlap-group"><label for="billDetails">Bill of Lading</label><textarea name="billDetails" rows="2" id="billDetails" placeholder="[BL Number] dated [Date] in [LoadPort]"></textarea></div>
-    <div class="overlap-group"><label for="shipperName">Shipper Name</label><input type="text" name="shipperName" id="shipperName" /></div>
-    <div class="overlap-group"><label for="consigneeName">Consignee Name</label><input type="text" name="consigneeName" id="consigneeName" /></div>
-    <div class="overlap-group"><label for="requestorName">Requestor Name</label><input type="text" name="requestorName" id="requestorName" /></div>
-    <div class="overlap-group"><label for="deliveryName">Delivery Recipient Name</label><input type="text" name="deliveryName" id="deliveryName" /></div>
-    <div class="overlap-group"><label for="deliveryPlace">Delivery Location</label><input type="text" name="deliveryPlace" id="deliveryPlace" /></div>
-    <div class="overlap-group"><label for="signatoryFullName">Signatory Full Name</label><input type="text" name="signatoryFullName" id="signatoryFullName" /></div>
-  </form>
-
-  <div class="actions">
-    <button onclick="copyText()">Copy Text</button>
-    <button onclick="downloadWord()">Download Word</button>
+    <div id="jsonOutput"></div>
+    <div id="debugConsole"></div>
   </div>
 
-<div id="preview">
-  <div id="preview-title">Letter of Indemnity Preview</div>
-  <div id="preview-content"></div>
-</div>
-  <div id="jsonOutput"></div>
-  <div id="debugConsole"></div>
-  </div>
   <script src="script.js"></script>
 </body>
 </html>
