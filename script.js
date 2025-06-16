@@ -151,7 +151,6 @@ function updatePreview() {
 ${d.ownerName}
 ${d.date}
 
-
 The Owners and/or Managers of the ${d.vesselName}
 ${d.ownerAddress}
 
@@ -192,6 +191,9 @@ The Requestor
 Full name ${d.signatoryFullName}
 Signature ______________________________
 Authorised signatory`;
+
+  // Apply it wrapped in a <pre> tag to preserve spacing
+  previewBox.innerHTML = `<pre>${loiText}</pre>`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
