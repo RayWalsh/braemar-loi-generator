@@ -145,8 +145,12 @@ function getFormData() {
 
 function updatePreview() {
   const d = getFormData();
-  preview.textContent = `To: ${d.ownerName}
+  const previewBox = document.getElementById('preview-content');
+
+  const loiText = `To:
+${d.ownerName}
 ${d.date}
+
 
 The Owners and/or Managers of the ${d.vesselName}
 ${d.ownerAddress}
