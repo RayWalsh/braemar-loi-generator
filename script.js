@@ -21,9 +21,10 @@ async function analyzeDocument() {
   const file = fileInput.files[0];
   if (!file) return alert("Please upload a file first.");
 
-  spinner.style.display = 'inline-block';
-  debugConsole.textContent = "Uploading and analyzing...";
-  jsonOutput.textContent = "";
+spinner.style.display = 'inline-block';
+document.getElementById('progressMessage').style.display = 'inline-block';
+debugConsole.textContent = "Uploading and analyzing...";
+jsonOutput.textContent = "";
 
   try {
     const url = `${endpoint}formrecognizer/documentModels/${modelId}:analyze?api-version=2023-07-31`;
@@ -68,6 +69,7 @@ async function analyzeDocument() {
     debugConsole.textContent += `\nERROR: ${err.message}`;
   } finally {
     spinner.style.display = 'none';
+    document.getElementById('progressMessage').style.display = 'none';
   }
 }
 
