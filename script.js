@@ -5,7 +5,7 @@ const fileInput = document.getElementById('fileInput');
 const spinner = document.getElementById('spinner');
 const debugConsole = document.getElementById('debugConsole');
 const jsonOutput = document.getElementById('jsonOutput');
-const preview = document.getElementById('preview');
+const preview = document.getElementById('preview-content');
 
 // Auto-fill today's date
 const dateField = document.getElementById('dateField');
