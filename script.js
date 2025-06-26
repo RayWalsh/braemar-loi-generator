@@ -201,6 +201,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (extractBtn) {
     extractBtn.addEventListener("click", analyzeDocument);
   }
+  // Live update preview as form values change
+  form.addEventListener("input", updatePreview);
+
 });
 
 function copyText() {
